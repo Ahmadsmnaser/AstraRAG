@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 # Download & load embedding model
 logger.info("Loading HuggingFace embedding model...")
-embed_model = HuggingFaceEmbedding()
+embed_model = HuggingFaceEmbedding(device="cpu")
 
 @tool
 def rag_query_tool(query: str) -> dict:
@@ -39,7 +39,7 @@ def rag_query_tool(query: str) -> dict:
     settings = AgentSettings()
     vector_store_path = settings.VECTOR_STORE_DIR
     collection_name = settings.COLLECTION_NAME
-    settings.llm = Groq(
+    Settings.llm = Groq(
         model=settings.MODEL_NAME,
         api_key=settings.GROQ_API_KEY,
         temperature=settings.MODEL_TEMPERATURE
